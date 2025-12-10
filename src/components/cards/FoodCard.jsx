@@ -1,5 +1,8 @@
+import Link from "next/link";
+import CartButton from "../buttons/CartButton";
+
 export default function FoodCard({ food }) {
-  const { title, foodImg, category, price } = food;
+  const { title, foodImg, category, price, id } = food;
 
   return (
     <div className="border rounded-xl p-4 shadow hover:shadow-lg transition">
@@ -16,13 +19,14 @@ export default function FoodCard({ food }) {
         <p className="text-xl font-bold mt-2">{price}৳</p>
 
         <div className="flex gap-3 mt-4">
-          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-            Add to Cart
-          </button>
+          <CartButton food={food}></CartButton>
 
-          <button className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-100">
+          <Link
+            href={`/foods/${id}`}
+            className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-100"
+          >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
