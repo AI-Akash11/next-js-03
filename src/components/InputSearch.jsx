@@ -1,23 +1,36 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const InputSearch = () => {
+  const router = useRouter();
+  const params = useSearchParams();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
+    const value = form.search.value;
 
-    console.log(form.search.value);
+    //নতুন search parameters
+    const newParams = new URLSearchParams(params.toString());
+
+    //set query
+    newParams.set("search", value);
+
+    router.push(`?${newParams.toString()}`);
   };
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex gap-2 items-centeer">
+      <form onSubmit={handleSubmit}>
         <input
-          type="text"
           name="search"
-          className="w-[350px] py-2 px-1 border rounded"
-          placeholder="Enter Food Name"
-        ></input>
-        <button className="btn">Search</button>
+          className="px-1 py-3 border-2 rounded w-2xl"
+          type="text"
+          placeholder="Enter Food name"
+        />
+        <button className="px-4 py-2 bg-yellow-500 text-black rounded cursor-pointer">
+          Search
+        </button>
       </form>
     </div>
   );

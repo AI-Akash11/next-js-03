@@ -8,6 +8,7 @@ const CartProvider = ({ children }) => {
   const addToCart = (item) => {
     setCart([item, ...cart]);
   };
+  
   const cartInfo = {
     addToCart,
     cart,
