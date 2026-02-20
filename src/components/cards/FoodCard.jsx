@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CartButton from "../buttons/CartButton";
 import style from "@/app/foods/foods.module.css";
+import Image from "next/image";
 
 export default function FoodCard({ food }) {
   const { title, foodImg, category, price, id } = food;
@@ -9,10 +10,18 @@ export default function FoodCard({ food }) {
     <div
       className={`border rounded-xl p-4 shadow hover:shadow-lg transition ${style.bgred}`}
     >
-      <img
+      {/* <img
         src={foodImg}
         alt={title}
         className="w-full h-44 object-cover rounded-lg"
+      /> */}
+
+      <Image
+        src={foodImg}
+        alt={title}
+        className="w-full h-44 object-cover rounded-lg"
+        width={300}
+        height={150}
       />
 
       <div className="mt-3">
@@ -26,7 +35,7 @@ export default function FoodCard({ food }) {
 
           <Link
             href={`/foods/${id}`}
-            className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-100"
+            className="flex-1 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 text-center"
           >
             View Details
           </Link>
