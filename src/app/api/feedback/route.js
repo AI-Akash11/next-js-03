@@ -1,25 +1,26 @@
-import { feedback } from "../route";
+import { connect } from "@/app/lib/dbConnect";
+
+const feedbackCollection = connect("feedbacks");
 
 export async function GET(request) {
-    return Response.json(feedback)
+  const result = await feedbackCollection.find().toArray();
+
+  return Response.json(result);
 }
 
 export async function POST(request) {
+  const { message } = await request.json();
 
-    const {message} = await request.json();
-
-    if(!message || typeof message !== "string"){
-        return Response.json({
-            status: 400,
-            message:"please send a message"
-        })
-    }
-
-    const newFeedback = {message, id:feedback.length + 1}
-    feedback.push(newFeedback);
-
+  if (!message || typeof message !== "string") {
     return Response.json({
-        acknowledged:true,
-        insertedId: newFeedback.id
-    })
+      status: 400,
+      message: "please send a message",
+    });
+  }
+
+  const newFeedback = { message, date: new Date().toISOString() };
+
+  const result = await feedbackCollection.insertOne(newFeedback);
+
+  return Response.json(result);
 }
